@@ -8,8 +8,13 @@ This app has no backend. EAS handles building, signing, and submission. The EAS 
 - EAS account, logged in via `eas login` (already set up — verify with `eas whoami`).
 - A Google Play **service account JSON key**, needed the first time you run `eas submit`:
   1. Play Console → **Setup → API access** → link/create a Google Cloud project → create a service account.
-  2. Grant it at least **Release Manager** access under Play Console → Users and permissions.
+  2. Play Console → **Users and permissions** → find that service account (email like `xxx@xxx.iam.gserviceaccount.com`) → grant it, at minimum, for the Rolling Dice app specifically:
+     - **Release to testing tracks**
+     - **Release to production, exclude devices, and use Play App Signing** (needed for `eas submit --profile production`)
+     - **View app information** (usually included by default)
   3. Download the JSON key. `eas submit` will prompt for its path the first time and store the reference for reuse.
+
+  > **Permissions are scoped per app.** If this service account already existed before Rolling Dice was created (e.g. reused from another app), it won't automatically have access to the new app — check "Users and permissions" and explicitly add Rolling Dice to that service account's app permissions if it's missing. Symptom of a missing/insufficient grant: `eas submit` fails with a 403/permission-denied style error (different from the "Package not found" error below, which is the *manual-first-upload* issue, not a permissions one).
 
 ## 1. Local verification before any cloud build
 
