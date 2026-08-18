@@ -66,6 +66,8 @@ eas submit --platform android --profile production
 
 Defaults to submitting the latest production build. On first run it will ask for the Google service account JSON key path (see step 0).
 
+> **Track fix (Aug 18, 2026):** `eas submit`'s Android track defaults to `internal` if not set explicitly — confirmed in `@expo/eas-json`'s own schema — regardless of the submit *profile* being named "production." `eas.json`'s `submit.production` now sets `"android": { "track": "production" }` so this actually targets the Production track once it's unlocked (see §5). Before this fix, every submission — including ones already run — silently went to Internal testing instead.
+
 > **The very first release of a brand-new app can't go through this command.** The Google Play Developer API (which `eas submit` uses) refuses to create an app's first release — Google requires the first build of a new package to be uploaded **manually** through the Play Console web UI before the API can be used at all. If `eas submit` fails with `Google Api Error: Invalid request - Package not found: <package name>`, that's this — not a config problem. To unblock:
 > 1. Play Console → **Create app** (if not already created): name "Rolling Dice", package `com.agenticsamir.rollingdice` (must match `app.json` exactly).
 > 2. Go to **Testing → Internal testing** → **Create new release** (internal testing doesn't require the store listing to be finished first, unlike Production).
@@ -75,6 +77,20 @@ Defaults to submitting the latest production build. On first run it will ask for
 > Once that first manual upload exists, `eas submit` works normally for every release after — this is strictly a one-time step for a new app.
 >
 > **Follow-up gotcha (root cause, now fixed):** after doing the manual upload above, running `eas submit` again on a new build could still fail with `You've already submitted this version of the app`. The real cause: `eas.json`'s `production` profile was missing `"autoIncrement": true`, so `appVersionSource: "remote"` alone was **not** bumping `versionCode` — every build, including `--local` ones, kept reusing the same version code Play already had from the manual upload. This is now fixed in `eas.json` (`autoIncrement: true` added to the `production` profile), so every future `eas build --profile production` gets a fresh version code automatically. If you ever see this error again, run `eas build:version:get --platform android --profile production` to check the current remote value against what's already live in Play Console.
+
+## 4.5. Shipping updates after the first release
+
+**Short answer: no, the closed-testing gate (§5, the 12-tester/14-day requirement) does not repeat for every update.** It's a one-time gate to unlock the Production track for this app. Once Play Console shows Production as active, every future update is just a normal release cycle:
+
+1. Make the code change.
+2. Bump `"version"` in `app.json` (e.g. `1.0.0` → `1.0.1`) — this is the human-readable version and isn't auto-managed. `android.versionCode` keeps auto-incrementing on its own (`autoIncrement: true` in `eas.json`, see §3 — no action needed there).
+3. Optionally sanity-check first: `eas build --profile preview` → install the APK directly, or push a build to **Internal testing** (instant, no minimums) — Google's own recommended practice, though not mandatory once Production is unlocked.
+4. `eas build --platform android --profile production`
+5. `eas submit --platform android --profile production` — now correctly targets the Production track (see the track fix above).
+6. Watch **Play Console → Publishing overview** for the review outcome. Updates to an already-approved app get a lighter review than the original production-access application — often within hours, sometimes longer if the change touches something policy-sensitive (permissions, content rating–relevant features, etc.).
+7. Once approved, it rolls out per whatever rollout percentage is set (100% by default unless you've configured a staged rollout).
+
+That's the whole loop for every future change — no repeat of the tester recruitment or 14-day wait from `deployment/README.md` §7, which only gates the *first* time Production is unlocked for this app.
 
 ## 5. Manual Google Play Console setup (cannot be done via CLI)
 

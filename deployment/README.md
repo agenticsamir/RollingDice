@@ -55,7 +55,7 @@ Steps, in order:
 5. **Wait out the 14 days**, then go to the **Dashboard** → **"Apply for production"** (only clickable once the 12-tester/14-day criteria are met). It's a 3-part form: *About your closed test*, *About your app/game*, *About your production readiness* — answer honestly based on what actually happened during the test (feedback received, issues fixed, etc.).
 6. **Google reviews the application** (usually ≤7 days; an email goes to the account owner when done). If approved, **Production** and **Open testing** both unlock in the left sidebar.
 
-Once Production is unlocked, go back to `../DEPLOYMENT.md` §3–4 (`eas build --profile production` → `eas submit`) to actually ship a release there — this closed-testing process is a one-time Play Console gate to unlock the track, not a replacement for the normal build/submit flow.
+Once Production is unlocked, go back to `../DEPLOYMENT.md` §3–4 (`eas build --profile production` → `eas submit`) to actually ship a release there — this closed-testing process is a one-time Play Console gate to unlock the track, not a replacement for the normal build/submit flow. **This whole section only happens once** — it does not repeat for future updates. For what shipping a later update actually looks like, see `../DEPLOYMENT.md` §4.5.
 
 ## Once everything above is filled in
 The App content checklist (§1–6) can be done today. §7 (closed testing) is the long pole — it takes 14+ days minimum plus review time, so start it as early as possible rather than saving it for last. Once Production is unlocked, use `../DEPLOYMENT.md` §2–4 to build and submit the app itself via EAS.
