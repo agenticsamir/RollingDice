@@ -1,25 +1,61 @@
 {
   "expo": {
-    "name": "RollingDice",
-    "slug": "RollingDice",
+    "name": "Rolling Dice",
+    "slug": "rolling-dice-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#1a1a2e",
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.agenticsamir.rollingdice",
+      "versionCode": 1,
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#1a1a2e",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
+      "permissions": [
+        "VIBRATE"
+      ],
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-audio",
+        {
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": false
+        }
+      ],
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Allow Rolling Dice to access motion sensors to detect shake gestures."
+        }
+      ],
+      "expo-asset",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#1a1a2e"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "eeb2297e-da69-46b3-8b4b-7741ca98d605"
+      }
+    },
+    "owner": "agenticsamir"
   }
 }
