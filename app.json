@@ -48,7 +48,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#1a1a2e"
         }
-      ]
+      ],
+      "./plugins/withStripUnusedPermissions"
     ],
     "extra": {
       "eas": {
