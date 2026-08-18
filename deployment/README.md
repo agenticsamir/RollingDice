@@ -2,7 +2,7 @@
 
 Everything in this folder is the material for the parts of shipping Rolling Dice that **can't be done via the EAS CLI** — Google Play Console's manual "App content" and store listing steps. For the CLI side (building and submitting the app itself), see `../DEPLOYMENT.md`.
 
-Work through this checklist top to bottom in Play Console → your app → **Grow → Store presence** and **App content**.
+Work through this checklist top to bottom in Play Console for the Rolling Dice app. Google renames/reshuffles this navigation periodically — as of writing (Aug 2026), the fastest way to reach every "App content" item (privacy policy, content rating, data safety, ads, target audience) is the **Dashboard → "Finish setting up your game" → "Provide game information and create your store listing"** checklist, which links straight to each one. The same items also live under the left sidebar's **Monitor and improve → Policy and programs → App content**. If neither exists by the time you read this, use the Play Console search icon in the top nav and search for the item name directly (e.g. "privacy policy").
 
 ## 1. Main store listing
 In the left sidebar, go to **Grow users → Store presence → Store listings** (this section gets renamed by Google periodically — as of writing it's "Store listings," previously "Main store listing"; if it's moved again, use the search icon in the top nav or check under whichever top-level item covers store presence/growth), then **Create default store listing** (a two-step Assets → Review form) and paste in:
@@ -14,11 +14,11 @@ In the left sidebar, go to **Grow users → Store presence → Store listings** 
 > **Note on the screenshots:** these are stylized mockups built to match the real app's colors and layout exactly (`src/components/Die.tsx`'s palette), not live device captures. They're good enough to submit as-is, but swap in real screenshots from a physical device once you've tested the app if you want pixel-perfect accuracy — see `../DEPLOYMENT.md` for how to test on-device via Expo Go.
 
 ## 2. App content → Privacy policy
-Paste this URL wherever Play Console asks for a Privacy Policy URL:
+Dashboard checklist item **"Set privacy policy"** (URL path `app-content/privacy-policy`) — a single-field form. Paste this URL into it:
 ```
 https://agenticsamir.github.io/RollingDice/
 ```
-This is published live from [`../docs/index.html`](../docs/index.html) via GitHub Pages (already enabled on this repo — see below).
+This is published live from [`../docs/index.html`](../docs/index.html) via GitHub Pages (already enabled on this repo — see below). Already filled in on this form as of Aug 18, 2026 — just needs **Save** clicked.
 
 ## 3. App content → Content rating
 Walk through the questionnaire using [`content-rating-guide.md`](./content-rating-guide.md) — every answer is "No," landing the app in the lowest rating tier.
