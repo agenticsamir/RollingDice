@@ -5,7 +5,7 @@ Everything in this folder is the material for the parts of shipping Rolling Dice
 Work through this checklist top to bottom in Play Console → your app → **Grow → Store presence** and **App content**.
 
 ## 1. Main store listing
-Go to **Grow → Store presence → Main store listing** and paste in:
+In the left sidebar, go to **Grow users → Store presence → Store listings** (this section gets renamed by Google periodically — as of writing it's "Store listings," previously "Main store listing"; if it's moved again, use the search icon in the top nav or check under whichever top-level item covers store presence/growth), then **Create default store listing** (a two-step Assets → Review form) and paste in:
 - App name, short description, full description, category → all in [`store-listing.md`](./store-listing.md)
 - App icon (512×512) → [`graphics/icon-512.png`](./graphics/icon-512.png)
 - Feature graphic (1024×500) → [`graphics/feature-graphic-1024x500.png`](./graphics/feature-graphic-1024x500.png)
