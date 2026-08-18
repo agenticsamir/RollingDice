@@ -72,6 +72,8 @@ Defaults to submitting the latest production build. On first run it will ask for
 > 4. Roll out that release.
 >
 > Once that first manual upload exists, `eas submit` works normally for every release after — this is strictly a one-time step for a new app.
+>
+> **Follow-up gotcha:** after doing the manual upload above, running `eas submit` again to submit that *same* build fails with `You've already submitted this version of the app` — Play Console already has that version code from the manual upload, so re-submitting it via the API is a duplicate. Fix: build again (`eas build --platform android --profile production`) — `appVersionSource: "remote"` auto-bumps `versionCode`, so the new build gets a version Play hasn't seen — then `eas submit` that new build. This only bites once, right after the manual first upload; every submission after that is a normal new build → submit cycle.
 
 ## 5. Manual Google Play Console setup (cannot be done via CLI)
 
