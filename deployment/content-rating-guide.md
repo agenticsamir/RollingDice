@@ -20,3 +20,9 @@ Expected result: **Everyone / PEGI 3** (or equivalent lowest tier) across all ra
 A separate short section in "App content" asks for the target age group:
 - **Recommended: "13+" or "Everyone"** — pick "Everyone" unless you want to explicitly exclude a younger audience; there's nothing in the app that requires an age gate.
 - If prompted about whether the app appeals to children specifically, answer based on your actual intent — a dice utility isn't inherently a kids' app, so "No, it's not primarily designed for children" is accurate unless you intend otherwise.
+
+## Health apps declaration
+A separate "Health apps" item may ask which health features your app uses. **Answer: none of the listed features apply** — Rolling Dice has no health, fitness, or medical functionality of any kind.
+
+## Foreground service / permissions declarations
+Play Console's automated scan may separately ask you to justify specific manifest permissions (e.g. `ACTIVITY_RECOGNITION`, foreground service types). As of Aug 18, 2026 these are no longer declared at all — `expo-audio` and `expo-sensors`' native modules were bundling permissions for features this app never uses (media-session audio controls, recording, pedometer/activity recognition), and they're now stripped via a manifest-merge override (see `plugins/withStripUnusedPermissions.js` and the note in `data-safety-guide.md`). If Play Console still shows a declaration prompt for one of these, it means you're looking at an older uploaded build — rebuild with `eas build --profile production` and it should be resolved in the new upload.

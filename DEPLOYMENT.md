@@ -80,6 +80,14 @@ Defaults to submitting the latest production build. On first run it will ask for
 
 Required before the first release can go out, even to internal testing. Everything needed for this step — store listing copy, icon/feature graphic/screenshots, content rating answers, data safety answers, and a live privacy policy URL — is already prepared in **[`deployment/`](./deployment/README.md)**. Start there and work through its checklist.
 
+> **Android manifest permission hygiene:** `expo-audio` and `expo-sensors`' native Android modules unconditionally bundle several permissions this app never actually uses (foreground-service audio/recording, `ACTIVITY_RECOGNITION`). Play Console will flag these — `ACTIVITY_RECOGNITION` specifically under its Health apps policy — if left in. They're stripped via a manifest-merge override in [`plugins/withStripUnusedPermissions.js`](./plugins/withStripUnusedPermissions.js). To verify this (or any future permission change) actually took effect in a real build **without** waiting on a full EAS cloud build, run a local Gradle manifest-merge check — it's fast (~20s) and doesn't require a device or full app compile:
+> ```bash
+> npx expo prebuild --platform android --clean
+> cd android && ./gradlew :app:processReleaseManifest
+> grep -E "uses-permission|<service" app/build/intermediates/merged_manifests/release/processReleaseManifest/AndroidManifest.xml
+> cd .. && rm -rf android   # this project stays in the managed workflow — don't commit the generated native folder
+> ```
+
 ## Notes
 
 - The package name (`com.agenticsamir.rollingdice`, set in `app.json`) is **permanent** once the first version is published to Play — it cannot be changed later.
