@@ -32,8 +32,30 @@ The remaining short declarations in Play Console's "App content" section all get
 - **Target audience:** Everyone / not primarily designed for children (see `content-rating-guide.md` for detail).
 - **Government apps / COVID-19 apps / financial features:** No to all — not applicable.
 
+## 6. App category & contact details
+Left sidebar → **Grow users → Store presence → Store settings**. Two things live here:
+- **App category** — "App or game" is already set to "Game"; pick a **Category** (Not selected yet) — e.g. Casual, matching the recommendation in `store-listing.md`.
+- **Store listing contact details** — an email address shown to users on the store listing.
+
+This is the last item in the Dashboard's "Finish setting up your game" checklist (item 11 of 11) — once it's done, that checklist is fully complete, but **that alone does not unlock Production** (see §7).
+
 ## GitHub Pages hosting (already set up)
 `docs/index.html` is served by GitHub Pages from the `main` branch's `/docs` folder at `https://agenticsamir.github.io/RollingDice/`. If you ever need to re-enable it (e.g. after a repo transfer), go to the repo's **Settings → Pages** and set Source to "Deploy from a branch," branch `main`, folder `/docs`.
 
+## 7. Closed testing → apply for production
+**This is the real remaining gate, and it's calendar-time-bound, not a checklist item.** Google requires personal Play Console accounts created after Nov 13, 2023 to run a closed test before Production access unlocks at all — confirmed live in this account's Dashboard ("Apply for access to production" is disabled until the criteria below are met) and in Google's own help article: [*App testing requirements for new personal developer accounts*](https://support.google.com/googleplay/android-developer/answer/14151465). Skipping straight to `eas submit`/production builds doesn't bypass this — it's a Play Console gate independent of how the binary gets there.
+
+**Requirement:** at least **12 testers opted in continuously for at least 14 days** on a closed test, then apply and pass a Google review (typically ≤7 days).
+
+Steps, in order:
+1. **Set up the closed track** — left sidebar → **Test and release → Testing → Closed testing**. A default **"Closed testing - Alpha"** track already exists for this app (currently empty/inactive).
+2. **Add testers** — open the track → **Testers** tab → **Email lists** (a list named "Samir Gupta" with 1 user already exists from setup) or **Google Groups**. Add emails until you have **12+ real testers**. Recruit from your personal/professional network (friends, family, colleagues) — this is Google's own recommended approach, not just a formality; they need to actually opt in and use the app, not just be listed.
+3. **Publish a release to this track** — track → **Releases** tab → **Create new release** → attach an AAB (the same one from `eas build --profile production` works fine) → roll out. This is a separate rollout from Internal testing/Production; it doesn't affect those tracks.
+4. **Get testers opted in** — once published, the track's **Testers** tab shows **"Join on Android"** and **"Join on the web"** links. Share one with your 12+ testers and ask them to actually open it and opt in (not just receive it). They must **stay opted in continuously for 14 days** — warn testers not to opt out early, since that resets the clock for the whole cohort's continuous-opt-in requirement.
+5. **Wait out the 14 days**, then go to the **Dashboard** → **"Apply for production"** (only clickable once the 12-tester/14-day criteria are met). It's a 3-part form: *About your closed test*, *About your app/game*, *About your production readiness* — answer honestly based on what actually happened during the test (feedback received, issues fixed, etc.).
+6. **Google reviews the application** (usually ≤7 days; an email goes to the account owner when done). If approved, **Production** and **Open testing** both unlock in the left sidebar.
+
+Once Production is unlocked, go back to `../DEPLOYMENT.md` §3–4 (`eas build --profile production` → `eas submit`) to actually ship a release there — this closed-testing process is a one-time Play Console gate to unlock the track, not a replacement for the normal build/submit flow.
+
 ## Once everything above is filled in
-Move on to `../DEPLOYMENT.md` §2–4 to build and submit the app itself via EAS.
+The App content checklist (§1–6) can be done today. §7 (closed testing) is the long pole — it takes 14+ days minimum plus review time, so start it as early as possible rather than saving it for last. Once Production is unlocked, use `../DEPLOYMENT.md` §2–4 to build and submit the app itself via EAS.
