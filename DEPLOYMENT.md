@@ -62,20 +62,7 @@ Defaults to submitting the latest production build. On first run it will ask for
 
 ## 5. Manual Google Play Console setup (cannot be done via CLI)
 
-Required before the first release can go out, even to internal testing:
-
-- **Store listing**: short description (≤80 chars), full description (≤4000 chars), category (Games → Casual or similar).
-- **Graphics**: hi-res icon (512×512 — separate from the in-app adaptive icon), feature graphic (1024×500), at least 2 phone screenshots.
-- **Content rating questionnaire** — should land in the lowest tier (no ads, no user content, no IAP).
-- **Data safety form** — this app collects no personal data and has no network access.
-  - Motion sensor (accelerometer, for shake-to-roll): read locally, used only for gesture detection, never stored or transmitted → answer **"No data collected."**
-  - Vibration is a normal (non-sensitive) permission and isn't tracked by this form at all.
-- **Ads / target audience declarations** — "no" across the board.
-- **Privacy policy URL**: not strictly required by Play's automated checks for an app with no dangerous permissions and no data collection, but the Play Console app-content flow often asks for one anyway. A minimal one-page policy is enough, e.g.:
-
-  > This app collects no personal data, has no network connectivity, and does not share any information with third parties. It uses on-device motion sensor data solely to detect a shake gesture, and this data is never stored or transmitted.
-
-  Host it anywhere stable (GitHub Pages, a static site, even a public Google Doc) and paste the URL into Play Console → App content.
+Required before the first release can go out, even to internal testing. Everything needed for this step — store listing copy, icon/feature graphic/screenshots, content rating answers, data safety answers, and a live privacy policy URL — is already prepared in **[`deployment/`](./deployment/README.md)**. Start there and work through its checklist.
 
 ## Notes
 
