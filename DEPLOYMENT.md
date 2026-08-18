@@ -60,6 +60,14 @@ eas submit --platform android --profile production
 
 Defaults to submitting the latest production build. On first run it will ask for the Google service account JSON key path (see step 0).
 
+> **The very first release of a brand-new app can't go through this command.** The Google Play Developer API (which `eas submit` uses) refuses to create an app's first release — Google requires the first build of a new package to be uploaded **manually** through the Play Console web UI before the API can be used at all. If `eas submit` fails with `Google Api Error: Invalid request - Package not found: <package name>`, that's this — not a config problem. To unblock:
+> 1. Play Console → **Create app** (if not already created): name "Rolling Dice", package `com.agenticsamir.rollingdice` (must match `app.json` exactly).
+> 2. Go to **Testing → Internal testing** → **Create new release** (internal testing doesn't require the store listing to be finished first, unlike Production).
+> 3. Manually upload the `.aab` that `eas build --profile production` downloaded to your machine (or download it again from `eas build:list` / the build's Expo dashboard page).
+> 4. Roll out that release.
+>
+> Once that first manual upload exists, `eas submit` works normally for every release after — this is strictly a one-time step for a new app.
+
 ## 5. Manual Google Play Console setup (cannot be done via CLI)
 
 Required before the first release can go out, even to internal testing. Everything needed for this step — store listing copy, icon/feature graphic/screenshots, content rating answers, data safety answers, and a live privacy policy URL — is already prepared in **[`deployment/`](./deployment/README.md)**. Start there and work through its checklist.
